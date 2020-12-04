@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from time import ctime
 import webbrowser
+import time
 
 recog = sr.Recognizer()
 
@@ -12,6 +13,7 @@ def record_audio(ask = False):
         voice_data = ''
         try: 
             voice_data = recog.recognize_google(audio)
+            print(voice_data)
         except sr.UnknownValueError: 
             print('Sorry, I did not understand')
         except sr.RequestError: 
@@ -28,9 +30,18 @@ def respond(voice_data):
         url = 'https://google.com/search?q=' + search
         webbrowser.get().open(url)
         print('Here is what I found for ' + search)
+    if 'find location' in voice_data: 
+        location = record_audio('What location are you finding? ')
+        url = 'https://google.nl/maps/place/' + location + '/&amp;'
+        webbrowser.get().open(url)
+        print('Here is the location of ' + location)
+    if 'exit' in voice_data: 
+        exit()
 
 
+time.sleep(1)
 print('How can I help you? ')
 
-voice_data = record_audio()
-respond(voice_data)
+while 1: 
+    voice_data = record_audio()
+    respond(voice_data)
