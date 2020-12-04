@@ -30,8 +30,8 @@ def suru_speaking(audio_string):
     audio_file = 'audio-' + str(r) + '.mp3'
     tts.save(audio_file)
     playsound(audio_file)
-    print(audio_string)
     os.remove(audio_file)
+    print(audio_string)
 
 def respond(voice_data): 
     if 'what is your name' in voice_data: 
